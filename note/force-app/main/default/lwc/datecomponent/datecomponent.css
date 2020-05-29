@@ -1,0 +1,22 @@
+
+  
+p {
+
+    font: bold 3em , sans-serif;
+    text-align: center;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 5px red;
+    font-size: 23px;
+    font-style: gras;
+}
+
+  
+h1 {
+
+    font: bold 3em , sans-serif;
+    text-align: center;
+    letter-spacing: 3px;
+    font-size: 23px;
+   
+    font-style: gras;
+}

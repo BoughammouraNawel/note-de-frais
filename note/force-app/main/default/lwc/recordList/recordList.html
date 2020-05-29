@@ -1,0 +1,107 @@
+<template>  
+Search by name {searchKey} 
+  
+      <lightning-input type="search" onchange={handleKeyChange}  
+        value={searchKey}></lightning-input>
+
+       <template if:true={ressources}>
+      
+        <div >
+         
+       
+            <article class="slds-card">
+           
+              <div class="slds-grid slds-einstein-header slds-card__header">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                  <div class="slds-grid slds-grid_vertical-align-center slds-size_3-of-4 slds-medium-size_2-of-3">
+                    <div class="slds-media__figure">
+                      <span class="slds-icon_container slds-icon-utility-salesforce1">
+                        <svg class="slds-icon slds-icon_small slds-icon-text-default" aria-hidden="true">
+                          <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#salesforce1"></use>
+                        </svg>
+                      </span>
+                    </div>
+                    <div class="slds-media__body">
+                      <h2 class="slds-truncate" title="Einstein (10+)">
+                     
+                        <strong>  <div style="font-family: 'Comic Sans MS'" class="slds-text-heading_small">List of Redleaners:</div></strong>
+                     
+                      </h2>
+                    </div>
+                  </div>
+                  <div class="slds-einstein-header__figure slds-size_1-of-4 slds-medium-size_1-of-3"  style="width:20%"></div>
+                </header>
+               
+              </div>
+             
+            </article>
+            <table class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout" style="width:100%">
+               
+       
+              
+            
+          
+       
+              <template for:each={ressources} for:item="ressource__c"  for:index="indexVar">  
+                <tr key={ressource__c.Id} class="slds-hint-parent" ondblclick={onDoubleClickEdit} >
+               
+               
+
+                  <th  class="slds-grid slds-gutters" scope="row">
+                <div class="slds-grid slds-gutters"></div>
+                  <div class="slds-col" style="font-family: 'Comic Sans MS'">
+                    <strong> <p>Name:</p>
+              
+                   <p> Email:    </p> 
+                
+             
+                  </strong>
+                
+                 
+                </div>
+
+
+                <div class="slds-col slds-size_12-of-12">
+                  <div class="slds-col slds-size_1-of-12">
+                    <div    data-label="Prospecting"  title={ressource__c.Name}>{ressource__c.Name}</div>
+                  </div>
+                 
+           
+                
+  
+                  <div class="slds-col slds-size_1-of-12">
+                    <div    data-label="Prospecting"  title={ressource__c.email_collaborateur__c}>{ressource__c.email_collaborateur__c}</div>
+                  </div>
+               
+                
+               
+                 
+               
+                  <a name={indexVar} data-id={ressource__c.Id} onclick={remove}>
+                    <lightning-icon icon-name="utility:recycle_bin_full" alternative-text="delete"   style="position: absolute;
+                    top: 1em;
+                    right: 10%
+                  "></lightning-icon>
+                                           
+            </a>
+               
+               
+                
+</div>
+                   
+               
+                </th>
+                 
+              
+                 </tr>  
+              </template>
+        
+          </table>
+        </div>
+      
+          </template>
+       
+      <p class="slds-m-vertical_medium content">Total records: <b>{totalrecords} </b> Page <b>{currentpage}</b> of  
+        <b> {totalpages}</b></p>  
+    
+  </template>  
