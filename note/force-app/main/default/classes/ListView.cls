@@ -1,4 +1,4 @@
-//Apex class to create listview automatically 
+
 
 global class ListView Implements Schedulable
     {
