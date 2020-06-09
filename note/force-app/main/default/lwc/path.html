@@ -1,0 +1,110 @@
+<template>
+	<div class="slds-card__body slds-card__body_inner">
+		<div class="slds-path">
+			<div class="slds-grid slds-path__track">
+				<div class="slds-grid slds-path__scroller-container">
+					<div class="slds-path__scroller" role="application">
+						<div class="slds-path__scroller_inner">
+							<ul class="slds-path__nav" role="listbox" aria-orientation="horizontal">
+								<template if:true={picklistValues}>
+									<template for:each={picklistValues} for:item="item">
+										<li data-value={item.pItem.value} onclick={handleSelect} key={item} class={item.classList} role="presentation">
+											<a data-value={item.pItem.value} onclick={handleSelect} aria-selected="true" class="slds-path__link" href="javascript:void(0);" id={item.pItem.value} role="option"
+												tabindex="0">
+												<span class="slds-path__stage">
+													<lightning-icon icon-name="utility:check" alternative-text="Warning!" variant="inverse" size="x-small"></lightning-icon>
+													<span class="slds-assistive-text">Current Stage:</span>
+												</span>
+												<span class="slds-path__title">{item.pItem.label}</span>
+											</a>
+										</li>			
+									</template>
+								</template>
+							</ul>
+						</div>
+					</div>
+        </div>
+        <lightning-progress-indicator current-step="step-1" type="path" variant="base">
+          <lightning-progress-step label="move to ressource 🔁" value="step-2"  onclick={openModal} variant="brand" class="slds-m-left_x-small"  
+           ></lightning-progress-step>
+         </lightning-progress-indicator>
+         <template if:true={isModalOpen}>
+           <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+               <div class="slds-modal__container">
+                   <header class="slds-modal__header">
+                       <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+
+                           <span class="slds-assistive-text">Close</span>
+                       </button>
+                      
+                            
+                       <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Are you sure you want to do that ❓ </h2>
+                   </header>
+                   <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                           <p><b>Clicking yes will move this candidate to ressources.
+                       </b></p>
+                   </div>
+                   <footer class="slds-modal__footer">
+                    
+                <lightning-button variant="brand" label="Close " title="Close " onclick={closeModals} class="slds-m-left_x-small"></lightning-button>
+                         <lightning-button variant="brand" label="yes do it now 👍" title="yes do it now 👍" onclick={showModalPopup} class="slds-m-left_x-small"></lightning-button>
+
+                         <c-util-modal 
+                             show-modal={showModal} 
+                             show-positive={showPositiveButton}
+                             positive-button-label={positiveButtonLabel} 
+                             show-negative={showNegativeButton}
+                             onpositive={closeModal}
+                             onclose={closeModal}>
+                             <div slot="header">    
+                                 <h2 slot="header" id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">moving candidate to resource</h2>
+                                 <lightning-avatar   src="https://www.lightningdesignsystem.com/assets/images/avatar2.jpg"></lightning-avatar> </div>
+                             <div slot="body" class="acc-container">
+                              
+
+                             
+
+
+                        <lightning-record-edit-form object-api-name="ressource__c"  onsubmit={handleSubmit}  onsuccess={handleSuccess}>
+                            <lightning-messages></lightning-messages>
+                            📋<lightning-input-field field-name="Name" value={Name}></lightning-input-field>
+                            📧 <lightning-input-field field-name="email_collaborateur__c" value={Email}></lightning-input-field>
+                            📞<lightning-input-field field-name="Phone_number__c" value={Phone}></lightning-input-field>
+                            💒 <lightning-input-field field-name="Adress__c" value={Adresse}></lightning-input-field>
+                            📑 <lightning-input-field field-name="Contract__c" value={Contrat} ></lightning-input-field>
+                              
+                            📸 <lightning-input-field field-name="Photo__c" value={Photo} ></lightning-input-field>
+                    
+                            <lightning-button type="submit"
+                                              label="move"
+                                              class="slds-m-top_small"
+                                              variant="brand" 
+                                              onclick={handleSubmit}></lightning-button>
+                        </lightning-record-edit-form>
+
+
+
+
+                                             </div> 
+                                            </c-util-modal>
+
+                   
+                  </footer>
+              </div>
+          </section>
+          <div class="slds-backdrop slds-backdrop_open"></div>
+      </template>
+              <div class="slds-grid slds-path__action">
+          <button class="slds-button slds-button_brand slds-path__mark-complete" onclick={handleMarkAsSelected}>
+						<lightning-icon icon-name="utility:check" alternative-text="Warning!" variant="inverse" size="x-small"></lightning-icon> &nbsp;
+						Mark Status as Complete
+					</button>
+        </div>
+			</div>
+		</div>
+	</div>
+	<template if:true={showSpinner}>
+        <lightning-spinner alternative-text="Loading" variant="inverse"></lightning-spinner>
+    </template>
+</template>
+</template>
