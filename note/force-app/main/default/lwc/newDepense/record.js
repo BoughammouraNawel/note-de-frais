@@ -1,12 +1,23 @@
-import { LightningElement, api} from 'lwc';
+import { LightningElement, api,wire} from 'lwc';
 
 
 import {ShowToastEvent} from 'lightning/platformShowToastEvent';
 
+import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
+import TITLE_FIELD from '@salesforce/schema/note_de_frais__c.Name';
+
+const fields = [TITLE_FIELD];
 
 export default class Record extends LightningElement {
     @api recordId;
   
+    @wire(getRecord, { recordId: '$recordId', fields })
+    note_de_frais__c_OBJECT;
+
+    get Title() {
+        return getFieldValue(this.note_de_frais__c_OBJECT.data, TITLE_FIELD);
+    };
+
     handleSubmit(event){
         event.preventDefault();       // stop the form from submitting
         const fields = event.detail.fields;
