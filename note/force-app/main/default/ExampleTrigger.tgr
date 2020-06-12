@@ -1,3 +1,5 @@
+//trigger to receive mail while adding new ressource
+
 trigger ExampleTrigger on ressource__c (after insert, after delete) {
     if (Trigger.isInsert) {
  		Integer recordCount = Trigger.New.size();
